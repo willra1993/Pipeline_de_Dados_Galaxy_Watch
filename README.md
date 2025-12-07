@@ -39,7 +39,7 @@ Você não precisa de grandes bases públicas para praticar ou montar seu portf�
 Se este projeto te inspirou ou ajudou de alguma forma, sinta-se à vontade para dar uma ⭐ no repositório ou compartilhar sua própria ideia usando dados pessoais!
 
 📊 Link do Dashboard criado
-https://app.powerbi.com/view?r=eyJrIjoiZjlmYzJlYWQtYTg4MC00MTlmLWJjYWEtMDA1M2NkYWRhYTkzIiwidCI6IjExNjBiYzYwLTA4ZTgtNDNhMi1iMTYxLWQ4MDlhZjJlNGJlMyJ9
+https://app.powerbi.com/view?r=eyJrIjoiYTYzZmUyMzQtNmMwYy00NjM5LWFhNDEtZTVkYmYzMTRjNGIyIiwidCI6IjExNjBiYzYwLTA4ZTgtNDNhMi1iMTYxLWQ4MDlhZjJlNGJlMyJ9
 
 <details>
   <summary>📜 Script usado para consolidar arquivos no AppScript</summary>

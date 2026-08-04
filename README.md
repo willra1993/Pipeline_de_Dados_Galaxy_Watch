@@ -1,94 +1,126 @@
-⌚📈 Pipeline de Dados Pessoais com Galaxy Watch 7
+<div align="center">
 
-Este repositório documenta a criação de um pipeline de dados completo, baseado em informações coletadas pelo meu Galaxy Watch 7, com o objetivo de praticar e demonstrar conhecimentos em engenharia e análise de dados, utilizando ferramentas acessíveis e integradas totalmente na nuvem.
+# ⌚ Pipeline de Dados do Galaxy Watch
 
-🔍 Visão Geral
-A proposta deste projeto é mostrar como dados pessoais do dia a dia — como sono, passos, frequência cardíaca e atividades físicas — podem ser utilizados para criar um pipeline automatizado de ponta a ponta, desde a captura dos dados até a visualização em dashboards no Power BI.
+### Do pulso ao dashboard: um pipeline pessoal, automatizado e 100% na nuvem
 
-⚙️ Tecnologias e Ferramentas Utilizadas
-Galaxy Watch 7
+[![Status](https://img.shields.io/badge/status-em%20evolu%C3%A7%C3%A3o-22c55e?style=for-the-badge)](#roadmap)
+[![Google Apps Script](https://img.shields.io/badge/Google%20Apps%20Script-4285F4?style=for-the-badge&logo=googleappsscript&logoColor=white)](src/google-apps-script/Code.gs)
+[![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=111827)](https://app.powerbi.com/view?r=eyJrIjoiYTYzZmUyMzQtNmMwYy00NjM5LWFhNDEtZTVkYmYzMTRjNGIyIiwidCI6IjExNjBiYzYwLTA4ZTgtNDNhMi1iMTYxLWQ4MDlhZjJlNGJlMyJ9)
 
-- Samsung Health (Android)
-- Health Sync (app para sincronização de dados)
-- Google Drive (armazenamento dos arquivos CSV)
-- Google Apps Script (consolidação automática dos arquivos)
-- Google Sheets (fonte de dados para o dashboard)
-- Power BI (visualização e análise dos dados)
+[Explorar o dashboard](https://app.powerbi.com/view?r=eyJrIjoiYTYzZmUyMzQtNmMwYy00NjM5LWFhNDEtZTVkYmYzMTRjNGIyIiwidCI6IjExNjBiYzYwLTA4ZTgtNDNhMi1iMTYxLWQ4MDlhZjJlNGJlMyJ9) · [Ver a arquitetura](docs/ARCHITECTURE.md) · [Reproduzir o projeto](docs/SETUP.md)
 
-📊 Resultados
-Com este pipeline foi possível construir um painel interativo, atualizado automaticamente, com visões sobre:
+</div>
 
-- Duração e qualidade do sono
-- Frequência cardíaca ao longo do tempo
-- Distância percorrida e número de passos
-- Tipo e duração das atividades físicas
-- Tudo isso com dados reais e pessoais, coletados ao longo dos meus dias.
+---
 
-✨ Objetivo
-Este projeto foi criado para fins de aprendizado e demonstração prática de conceitos de:
+Este projeto transforma dados reais coletados por um **Samsung Galaxy Watch 7** em um dashboard interativo. O fluxo cobre todo o caminho dos dados: captura, sincronização, armazenamento, consolidação e análise.
 
-- Coleta e organização de dados
-- Automação com Google Apps Script
-- Integração com ferramentas de BI
-- Storytelling com dados pessoais
+Mais do que um dashboard, este repositório demonstra na prática conceitos de **engenharia de dados**, **automação**, **observabilidade** e **storytelling com dados pessoais** usando ferramentas acessíveis.
 
-💡 Inspiração
-Você não precisa de grandes bases públicas para praticar ou montar seu portfólio. Muitas vezes, os dados que você precisa já estão com você — no seu celular, smartwatch ou outros dispositivos. A criatividade é o ponto de partida!
+## Dashboard
 
-🙌 Agradecimento
-Se este projeto te inspirou ou ajudou de alguma forma, sinta-se à vontade para dar uma ⭐ no repositório ou compartilhar sua própria ideia usando dados pessoais!
+O relatório apresenta visões sobre:
 
-📊 Link do Dashboard criado
-https://app.powerbi.com/view?r=eyJrIjoiYTYzZmUyMzQtNmMwYy00NjM5LWFhNDEtZTVkYmYzMTRjNGIyIiwidCI6IjExNjBiYzYwLTA4ZTgtNDNhMi1iMTYxLWQ4MDlhZjJlNGJlMyJ9
+- duração e qualidade do sono;
+- frequência cardíaca ao longo do tempo;
+- distância percorrida e quantidade de passos;
+- tipo, frequência e duração das atividades físicas.
 
-<details>
-  <summary>📜 Script usado para consolidar arquivos no AppScript</summary>
+> [!TIP]
+> Abra o [dashboard público no Power BI](https://app.powerbi.com/view?r=eyJrIjoiYTYzZmUyMzQtNmMwYy00NjM5LWFhNDEtZTVkYmYzMTRjNGIyIiwidCI6IjExNjBiYzYwLTA4ZTgtNDNhMi1iMTYxLWQ4MDlhZjJlNGJlMyJ9) para explorar os indicadores de forma interativa.
 
-  ```javascript
-  function importarCSVstema() {
-  const nomePasta = 'NOME_DA_PASTA_NO_GOOGLE_DRIVE'; // Altere aqui
-  const prefixoArquivo = 'PREFIXO'; //caso queira somente arquivos com certo padrão na nomencatura/prefixo
-  const planilhaDestino = SpreadsheetApp.getActiveSpreadsheet();
-  const abaDestino = planilhaDestino.getSheetByName("Planilha1") || planilhaDestino.getSheets()[0];
-  
-  const pasta = DriveApp.getFoldersByName(nomePasta).next();
-  const arquivos = pasta.getFiles();
+## Arquitetura
 
-  const props = PropertiesService.getScriptProperties();
-  const arquivosJaProcessados = JSON.parse(props.getProperty("arquivos_processados") || "[]");
+```mermaid
+flowchart LR
+    A["Galaxy Watch 7"] --> B["Samsung Health"]
+    B --> C["Health Sync"]
+    C -->|"arquivos CSV"| D["Google Drive"]
+    D -->|"execução agendada"| E["Google Apps Script"]
+    E -->|"consolidação idempotente"| F["Google Sheets"]
+    F -->|"atualização dos dados"| G["Power BI"]
+```
 
-  let dadosTotais = [];
-  let primeiraLinha = true;
-  let arquivosProcessadosAgora = [];
+| Etapa | Tecnologia | Responsabilidade |
+| --- | --- | --- |
+| Coleta | Galaxy Watch 7 + Samsung Health | Registrar métricas de saúde e atividade |
+| Sincronização | Health Sync | Exportar os dados para arquivos CSV |
+| Armazenamento | Google Drive | Centralizar os arquivos recebidos |
+| Processamento | Google Apps Script | Validar e consolidar somente arquivos novos |
+| Camada analítica | Google Sheets | Disponibilizar a tabela consolidada |
+| Visualização | Power BI | Transformar os dados em indicadores e narrativas |
 
-  while (arquivos.hasNext()) {
-    const arquivo = arquivos.next();
-    const nome = arquivo.getName();
+Os detalhes técnicos e as decisões de projeto estão em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-    if (!nome.startsWith(prefixoArquivo) || !nome.endsWith('.csv') || arquivosJaProcessados.includes(nome)) {
-      continue;
-    }
+## Diferenciais técnicos
 
-    const conteudo = arquivo.getBlob().getDataAsString();
-    const linhas = Utilities.parseCsv(conteudo);
+- **Processamento idempotente:** cada arquivo é identificado pelo ID do Google Drive e importado apenas uma vez.
+- **Proteção contra concorrência:** um `ScriptLock` evita execuções simultâneas do gatilho.
+- **Rastreabilidade:** uma aba de controle registra arquivo, quantidade de linhas e horário de processamento.
+- **Tolerância a CSVs irregulares:** as linhas são normalizadas antes da escrita no Google Sheets.
+- **Configuração centralizada:** pasta, prefixo, abas e limite por execução ficam reunidos em um único objeto.
+- **Execução manual ou agendada:** o script adiciona um menu à planilha e também aceita gatilhos temporizados.
 
-    for (let i = 0; i < linhas.length; i++) {
-      if (i === 0 && !primeiraLinha) continue;
-      dadosTotais.push(linhas[i]);
-    }
+## Estrutura do repositório
 
-    arquivosProcessadosAgora.push(nome);
-    primeiraLinha = false;
+```text
+.
+├── .github/                  # templates para issues e pull requests
+├── docs/
+│   ├── ARCHITECTURE.md       # fluxo, decisões e confiabilidade
+│   └── SETUP.md              # tutorial completo de configuração
+├── src/google-apps-script/
+│   ├── Code.gs               # consolidador de arquivos CSV
+│   └── appsscript.json        # manifesto do runtime V8
+├── CONTRIBUTING.md           # guia de contribuição
+├── SECURITY.md               # privacidade e reporte responsável
+└── README.md
+```
 
-    // Se estiver processando muitos arquivos, pode quebrar aqui
-    if (dadosTotais.length > 5000) break;
-  }
+## Como reproduzir
 
-  if (dadosTotais.length > 0) {
-    const ultimaLinha = abaDestino.getLastRow();
-    abaDestino.getRange(ultimaLinha + 1, 1, dadosTotais.length, dadosTotais[0].length).setValues(dadosTotais);
-  }
+1. Configure o Health Sync para exportar os dados desejados em CSV para uma pasta do Google Drive.
+2. Crie uma planilha no Google Sheets e abra **Extensões → Apps Script**.
+3. Copie o conteúdo de [`src/google-apps-script/Code.gs`](src/google-apps-script/Code.gs).
+4. Ajuste o objeto `CONFIG` com o nome da pasta, o prefixo dos arquivos e os nomes das abas.
+5. Execute `consolidarDadosDoGalaxyWatch` uma vez e autorize o acesso ao Drive e ao Sheets.
+6. Crie um gatilho baseado em tempo para automatizar as próximas execuções.
+7. Conecte a planilha consolidada ao Power BI.
 
-  // Atualiza a lista de arquivos processados
-  props.setProperty("arquivos_processados", JSON.stringify(arquivosJaProcessados.concat(arquivosProcessadosAgora)));
-}
+O passo a passo com pré-requisitos, permissões e validações está em [docs/SETUP.md](docs/SETUP.md).
+
+## Privacidade
+
+Dados de saúde são sensíveis. Este repositório **não contém dados pessoais, identificadores, arquivos exportados ou credenciais**. Ao reproduzir o projeto:
+
+- mantenha as planilhas e a pasta do Drive privadas;
+- publique somente informações agregadas ou anonimizadas;
+- revise o dashboard antes de habilitar o compartilhamento público;
+- nunca versione CSVs reais, tokens ou IDs privados.
+
+Consulte [SECURITY.md](SECURITY.md) para orientações adicionais.
+
+## Roadmap
+
+- [x] Coleta e sincronização dos dados do Galaxy Watch
+- [x] Consolidação incremental dos arquivos CSV
+- [x] Dashboard interativo no Power BI
+- [x] Registro de arquivos processados e proteção contra concorrência
+- [ ] Monitoramento de falhas e notificações automáticas
+- [ ] Testes com dados sintéticos e validação de esquema
+- [ ] Camada histórica em banco de dados ou data warehouse
+
+## Contribuição
+
+Sugestões e melhorias são bem-vindas. Antes de começar, leia [CONTRIBUTING.md](CONTRIBUTING.md), abra uma issue para alinhar a proposta e evite anexar qualquer dado pessoal.
+
+Se este projeto ajudou ou inspirou você, considere deixar uma ⭐ no repositório.
+
+---
+
+<div align="center">
+
+Construído como projeto de portfólio em engenharia e análise de dados.
+
+</div>

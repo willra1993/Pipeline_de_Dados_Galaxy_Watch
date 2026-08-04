@@ -1,0 +1,29 @@
+# Dados e exportações pessoais
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.pbix
+data/
+exports/
+
+# Segredos e configuração local
+.env
+.env.*
+!.env.example
+*.local
+credentials.json
+token.json
+
+# Ferramentas e sistema operacional
+.clasp.json
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos temporários
+*.log
+*.tmp
+~$*

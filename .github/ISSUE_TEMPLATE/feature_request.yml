@@ -1,0 +1,32 @@
+name: Sugerir uma melhoria
+description: Proponha uma nova capacidade ou melhoria de documentação.
+title: "[Melhoria]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Problema ou oportunidade
+      description: Que necessidade esta proposta resolve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Solução proposta
+      description: Descreva o comportamento desejado e possíveis alternativas.
+    validations:
+      required: true
+  - type: textarea
+    id: impacto
+    attributes:
+      label: Impacto no pipeline
+      description: Indique quais etapas, configurações ou documentos seriam afetados.
+  - type: checkboxes
+    id: seguranca
+    attributes:
+      label: Segurança
+      options:
+        - label: A proposta pode ser demonstrada sem publicar dados pessoais ou credenciais.
+          required: true

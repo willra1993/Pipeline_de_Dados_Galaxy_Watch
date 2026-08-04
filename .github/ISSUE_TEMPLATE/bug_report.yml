@@ -1,0 +1,52 @@
+name: Relatar um problema
+description: Informe um comportamento incorreto ou inesperado no pipeline.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado pelo relato. Não inclua dados pessoais, arquivos reais, credenciais ou links privados.
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição
+      description: O que aconteceu e qual era o resultado esperado?
+    validations:
+      required: true
+  - type: textarea
+    id: reproducao
+    attributes:
+      label: Como reproduzir
+      description: Use exemplos sintéticos e liste os passos mínimos.
+      placeholder: |
+        1. Configurei...
+        2. Executei...
+        3. Observei...
+    validations:
+      required: true
+  - type: dropdown
+    id: componente
+    attributes:
+      label: Componente
+      options:
+        - Google Apps Script
+        - Google Drive ou Sheets
+        - Power BI
+        - Documentação
+        - Outro
+    validations:
+      required: true
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto adicional
+      description: Inclua logs sanitizados, versão do navegador ou outras informações úteis.
+  - type: checkboxes
+    id: privacidade
+    attributes:
+      label: Confirmação de privacidade
+      options:
+        - label: Removi dados pessoais, credenciais e identificadores privados deste relato.
+          required: true

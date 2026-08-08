@@ -62,22 +62,6 @@ Os detalhes técnicos e as decisões de projeto estão em [docs/ARCHITECTURE.md]
 - **Configuração centralizada:** pasta, prefixo, abas e limite por execução ficam reunidos em um único objeto.
 - **Execução manual ou agendada:** o script adiciona um menu à planilha e também aceita gatilhos temporizados.
 
-## Estrutura do repositório
-
-```text
-.
-├── .github/                  # templates para issues e pull requests
-├── docs/
-│   ├── ARCHITECTURE.md       # fluxo, decisões e confiabilidade
-│   └── SETUP.md              # tutorial completo de configuração
-├── src/google-apps-script/
-│   ├── Code.gs               # consolidador de arquivos CSV
-│   └── appsscript.json        # manifesto do runtime V8
-├── CONTRIBUTING.md           # guia de contribuição
-├── SECURITY.md               # privacidade e reporte responsável
-└── README.md
-```
-
 ## Como reproduzir
 
 1. Configure o Health Sync para exportar os dados desejados em CSV para uma pasta do Google Drive.
